@@ -111,9 +111,42 @@
     /* ─── Hero ─── */
     .hero {
       padding: var(--space-96) 0 var(--space-120);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-atmosphere {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-atmosphere img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      opacity: 0.14;
+      filter: grayscale(0.3) saturate(0.7);
+    }
+
+    .hero-atmosphere::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        var(--color-bone) 0%,
+        var(--color-bone) 42%,
+        rgba(239, 239, 208, 0.85) 58%,
+        rgba(239, 239, 208, 0.55) 100%
+      );
     }
 
     .hero-grid {
+      position: relative;
+      z-index: 1;
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
       gap: var(--space-64);
@@ -497,6 +530,9 @@
   <main>
     <!-- Hero -->
     <section class="hero">
+      <div class="hero-atmosphere" aria-hidden="true">
+        <img src="hero-pain.jpg" alt="" width="1200" height="801" />
+      </div>
       <div class="container hero-grid">
         <div>
           <div class="hero-label">Научный подход</div>
