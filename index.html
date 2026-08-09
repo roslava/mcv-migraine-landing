@@ -18,13 +18,9 @@
       --color-border: rgba(0, 78, 137, 0.18);
       --color-ember: #FF6B35;
       --font: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --text-caption: 15px;
       --text-body: 17px;
-      --text-sub: 22px;
-      --text-heading-sm: 28px;
       --text-heading: 36px;
       --text-display: clamp(2.75rem, 7vw, 4.75rem);
-      --space-8: 8px;
       --space-16: 16px;
       --space-24: 24px;
       --space-32: 32px;
@@ -35,7 +31,6 @@
       --space-120: 120px;
       --radius-card: 20px;
       --radius-btn: 24px;
-      --radius-pill: 48px;
       --radius-img: 20px;
       --max: 1120px;
     }
@@ -69,20 +64,34 @@
       transition: opacity 0.2s ease;
     }
     .nav-cta:hover { opacity: 0.9; }
-    .hero { padding: var(--space-96) 0 var(--space-120); position: relative; overflow: hidden; }
-    .hero-atmosphere { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-    .hero-atmosphere img {
-      width: 100%; height: 100%; object-fit: cover; object-position: center 30%;
-      opacity: 0.14; filter: grayscale(0.3) saturate(0.7);
+    .hero {
+      position: relative;
+      min-height: min(78vh, 720px);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
     }
-    .hero-atmosphere::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(105deg, var(--color-bone) 0%, var(--color-bone) 42%, rgba(239, 239, 208, 0.85) 58%, rgba(239, 239, 208, 0.55) 100%);
+    .hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
     }
-    .hero-grid {
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        100deg,
+        rgba(239, 239, 208, 0.92) 0%,
+        rgba(239, 239, 208, 0.78) 38%,
+        rgba(239, 239, 208, 0.35) 62%,
+        rgba(239, 239, 208, 0.15) 100%
+      );
+    }
+    .hero-content {
       position: relative; z-index: 1;
-      display: grid; grid-template-columns: 1.1fr 0.9fr;
-      gap: var(--space-64); align-items: center;
+      padding: var(--space-96) 0;
+      max-width: 32rem;
     }
     .hero-label {
       display: inline-flex; align-items: center; gap: 10px;
@@ -91,25 +100,24 @@
       margin-bottom: var(--space-24);
     }
     .hero-label::before {
-      content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--color-ember);
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--color-ember);
     }
     .hero h1 {
-      font-size: var(--text-display); font-weight: 500; line-height: 0.92;
-      letter-spacing: -0.03em; color: var(--color-ink);
-      margin-bottom: var(--space-24); max-width: 12ch;
+      font-size: var(--text-display);
+      font-weight: 500;
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      color: var(--color-ink);
+      margin-bottom: var(--space-24);
     }
     .hero-lead {
-      font-size: 18px; line-height: 1.5; color: var(--color-ink-soft);
-      max-width: 36ch; margin-bottom: var(--space-32);
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--color-ink-soft);
+      max-width: 36ch;
+      margin-bottom: 40px;
     }
-    .hero-meta {
-      font-size: 16px; color: var(--color-ink);
-      padding: 16px 0;
-      border-top: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
-      margin-bottom: 40px; max-width: 42ch;
-    }
-    .hero-meta strong { font-weight: 500; }
     .btn-ember {
       display: inline-flex; align-items: center; gap: 10px;
       background: var(--color-ember); color: #fff;
@@ -119,12 +127,45 @@
     }
     .btn-ember:hover { opacity: 0.9; }
     .btn-ember svg { width: 18px; height: 18px; }
-    .hero-photo-wrap { position: relative; }
-    .hero-photo {
-      width: 100%; max-width: 440px; margin-left: auto;
-      border-radius: var(--radius-img); object-fit: cover;
-      aspect-ratio: 3/4; border: 1px solid var(--color-border);
+    .doctor {
+      padding: var(--space-120) 0;
+      border-top: 1px solid var(--color-border);
     }
+    .doctor-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: var(--space-64);
+      align-items: center;
+    }
+    .doctor-photo {
+      width: 100%;
+      max-width: 400px;
+      border-radius: var(--radius-img);
+      object-fit: cover;
+      aspect-ratio: 3/4;
+      border: 1px solid var(--color-border);
+    }
+    .doctor-label {
+      font-size: 14px; font-weight: 500; letter-spacing: 0.04em;
+      text-transform: uppercase; color: var(--color-ember);
+      margin-bottom: var(--space-16);
+    }
+    .doctor h2 {
+      font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--color-ink);
+      margin-bottom: var(--space-24);
+    }
+    .doctor-text {
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--color-ink-soft);
+      margin-bottom: var(--space-32);
+      max-width: 42ch;
+    }
+    .doctor-text strong { color: var(--color-ink); font-weight: 500; }
     section { padding: var(--space-96) 0; }
     .section-head {
       display: flex; align-items: baseline; justify-content: space-between;
@@ -132,7 +173,6 @@
       border-bottom: 1px solid var(--color-border);
     }
     .section-head-left {
-      display: flex; align-items: center; gap: 12px;
       font-size: 15px; font-weight: 500; letter-spacing: 0.02em; color: var(--color-ink);
     }
     .section-num { font-size: 15px; font-weight: 500; color: var(--color-ink-soft); }
@@ -206,23 +246,23 @@
       font-size: 14px; color: var(--color-ink-soft); text-align: center;
     }
     @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; gap: var(--space-48); }
-      .hero-photo { max-width: 320px; margin: 0 auto; }
-      .hero h1 { max-width: none; }
+      .hero { min-height: auto; }
+      .hero-content { padding: var(--space-80) 0; max-width: none; }
+      .doctor-grid { grid-template-columns: 1fr; gap: var(--space-48); }
+      .doctor-photo { max-width: 280px; margin: 0 auto; }
       .why-grid { grid-template-columns: 1fr; }
       .methods-grid { grid-template-columns: 1fr; }
       section { padding: var(--space-64) 0; }
-      .hero { padding: var(--space-64) 0 var(--space-80); }
+      .doctor { padding: var(--space-80) 0; }
     }
     @media (max-width: 480px) {
       .btn-ember { width: 100%; justify-content: center; }
-      .nav-cta span { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; }
     }
     .shimmer-text {
-      position: relative; display: inline-block;
+      position: relative; display: inline;
       background-image: linear-gradient(
         105deg,
         var(--color-ink) 0%, var(--color-ink) 38%,
@@ -259,24 +299,42 @@
   </header>
   <main>
     <section class="hero">
-      <div class="hero-atmosphere" aria-hidden="true">
-        <img src="https://storage.yandexcloud.net/mcv26/landing_mcv26_hero_01.png" alt="" width="1200" height="801" />
+      <div class="hero-bg" aria-hidden="true">
+        <img src="https://storage.yandexcloud.net/mcv26/landing_mcv26_hero_01.png" alt="" width="1600" height="1067" />
       </div>
-      <div class="container hero-grid">
-        <div>
+      <div class="container">
+        <div class="hero-content">
           <div class="hero-label">Научный подход</div>
           <h1><span class="shimmer-text">Страдаете от частых головных болей?</span></h1>
           <p class="hero-lead">Избавьтесь от мигрени с гарантией научного подхода в Медицинском центре Власова.</p>
-          <div class="hero-meta">
-            Ведёт приём <strong>Дарья Юрьевна</strong> — опытный врач-невролог, цефалголог и ведущий специалист по лечению хронической мигрени.
-          </div>
+          <a href="#doctor" class="btn-ember">
+            Узнать о специалисте
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+    <section class="doctor" id="doctor">
+      <div class="container doctor-grid">
+        <div>
+          <img
+            src="https://storage.yandexcloud.net/mcv26/daria_yuryevna01.png"
+            alt="Дарья Юрьевна — врач-невролог, цефалголог"
+            class="doctor-photo"
+            width="400"
+            height="533"
+          />
+        </div>
+        <div>
+          <div class="doctor-label">Специалист</div>
+          <h2>Дарья Юрьевна</h2>
+          <p class="doctor-text">
+            Опытный <strong>врач-невролог</strong>, цефалголог и ведущий специалист по лечению хронической мигрени в Медицинском центре Власова.
+          </p>
           <a href="#cta" class="btn-ember">
             Записаться на приём
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-        </div>
-        <div class="hero-photo-wrap">
-          <img src="https://storage.yandexcloud.net/mcv26/daria_yuryevna01.png" alt="Дарья Юрьевна — врач-невролог, цефалголог" class="hero-photo" width="440" height="587" />
         </div>
       </div>
     </section>
