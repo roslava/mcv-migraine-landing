@@ -382,31 +382,51 @@
     .cta-contacts {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: var(--space-32);
-      max-width: 720px;
+      gap: 20px;
+      max-width: 680px;
       margin: 0 auto;
       text-align: left;
     }
     .cta-contact {
-      background: var(--color-surface-soft);
+      background: #fff;
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-card);
-      padding: var(--space-32);
+      border-radius: 16px;
+      padding: 28px 28px 24px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 0;
+      min-height: 140px;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .cta-contact:hover {
+        border-color: rgba(0, 78, 137, 0.28);
+        box-shadow: 0 8px 24px rgba(0, 78, 137, 0.06);
+      }
+    }
+    .cta-contact-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-ember);
+      margin-bottom: 10px;
     }
     .cta-contact-addr {
       font-size: 15px;
-      line-height: 1.45;
+      line-height: 1.4;
       color: var(--color-ink-soft);
+      margin-bottom: auto;
+      padding-bottom: 20px;
     }
     .cta-contact-phone {
-      font-size: 22px;
-      font-weight: 500;
+      font-size: 20px;
+      font-weight: 600;
       letter-spacing: -0.02em;
       color: var(--color-ink);
       width: fit-content;
+      padding-top: 16px;
+      border-top: 1px solid var(--color-border);
       transition: color 0.2s ease;
     }
     .cta-contact-phone:hover {
@@ -415,10 +435,15 @@
     @media (max-width: 900px) {
       .cta-contacts {
         grid-template-columns: 1fr;
-        gap: var(--space-16);
+        gap: 12px;
+        max-width: 420px;
+      }
+      .cta-contact {
+        min-height: 0;
+        padding: 22px 24px;
       }
       .cta-contact-phone {
-        font-size: 20px;
+        font-size: 18px;
       }
     }
 
@@ -738,11 +763,13 @@
         <p>Позвоните и запишитесь на амбулаторный приём к Дарье Юрьевне — сделайте первый шаг к свободе от мигрени.</p>
         <div class="cta-contacts">
           <div class="cta-contact">
-            <p class="cta-contact-addr">г.&nbsp;Ставрополь, ул.&nbsp;Чехова, 45а</p>
+            <div class="cta-contact-label">Чехова</div>
+            <p class="cta-contact-addr">г.&nbsp;Ставрополь,<br />ул.&nbsp;Чехова, 45а</p>
             <a class="cta-contact-phone" href="tel:+78652447044">+7 (8652) 44-70-44</a>
           </div>
           <div class="cta-contact">
-            <p class="cta-contact-addr">г.&nbsp;Ставрополь, ул.&nbsp;Тухачевского, 26/5</p>
+            <div class="cta-contact-label">Тухачевского</div>
+            <p class="cta-contact-addr">г.&nbsp;Ставрополь,<br />ул.&nbsp;Тухачевского, 26/5</p>
             <a class="cta-contact-phone" href="tel:+78652477366">+7 (8652) 477-366</a>
           </div>
         </div>
