@@ -71,6 +71,8 @@
       background: var(--color-hero-bg);
       padding: 0;
       overflow: hidden;
+      position: relative;
+      isolation: isolate;
     }
     .hero-grid {
       display: grid;
@@ -300,7 +302,6 @@
         order: -1;
         min-width: 100%;
       }
-      
       .hero-content {
         max-width: none;
         padding: var(--space-64) 0;
@@ -314,10 +315,70 @@
     }
     @media (max-width: 480px) {
       .btn-ember { width: 100%; justify-content: center; }
-      
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; }
+    }
+
+    /* Border Beam on hero */
+    .hero-beam-ring,
+    .hero-beam-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      border-radius: 0;
+      background: conic-gradient(
+        from var(--beam-a, 0deg),
+        transparent 0deg,
+        color-mix(in srgb, #FF6B35 4%, transparent) 18deg,
+        color-mix(in srgb, #FF6B35 55%, transparent) 46deg,
+        #FF6B35 56deg,
+        color-mix(in srgb, #FF6B35 22%, #ffffff) 60deg,
+        transparent 63deg,
+        transparent 180deg,
+        color-mix(in srgb, #F7C59F 4%, transparent) 198deg,
+        color-mix(in srgb, #F7C59F 50%, transparent) 226deg,
+        #F7C59F 236deg,
+        color-mix(in srgb, #F7C59F 26%, #ffffff) 240deg,
+        transparent 243deg,
+        transparent 360deg
+      );
+    }
+    .hero-beam-ring {
+      padding: 2px;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+              mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+              mask-composite: exclude;
+    }
+    .hero-beam-glow {
+      filter: blur(16px);
+      opacity: 0.4;
+      z-index: 1;
+    }
+    .hero > .container {
+      position: relative;
+      z-index: 3;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-beam-ring,
+      .hero-beam-glow {
+        background: linear-gradient(
+          135deg,
+          transparent 0%,
+          color-mix(in srgb, #FF6B35 40%, transparent) 50%,
+          transparent 100%
+        );
+      }
+    }
+    @media (forced-colors: active) {
+      .hero-beam-ring,
+      .hero-beam-glow { display: none; }
     }
   </style>
 </head>
@@ -331,7 +392,9 @@
     </div>
   </header>
   <main>
-    <section class="hero">
+    <section class="hero" id="hero" data-beam>
+      <div class="hero-beam-glow" aria-hidden="true"></div>
+      <div class="hero-beam-ring" aria-hidden="true"></div>
       <div class="container hero-grid">
         <div class="hero-content">
           <div class="hero-label">Научный подход</div>
@@ -446,5 +509,55 @@
       <p>© Медицинский центр Власова · Лечение головной боли и мигрени</p>
     </div>
   </footer>
+  <script>
+  (function () {
+    var hero = document.getElementById('hero');
+    if (!hero) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) {
+      hero.style.setProperty('--beam-a', '40deg');
+      return;
+    }
+    var angle = 12;
+    var speed = 42;
+    var target = 42;
+    var velocity = 0;
+    var k = 30, d = 11;
+    var idle = 42, hover = 200;
+    var last = 0;
+    var onScreen = true;
+    function paint() {
+      var a = ((angle % 360) + 360) % 360;
+      hero.style.setProperty('--beam-a', a.toFixed(2) + 'deg');
+    }
+    function step(now) {
+      if (!last) last = now;
+      var dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      var a = k * (target - speed) - d * velocity;
+      velocity += a * dt;
+      speed += velocity * dt;
+      if (onScreen) {
+        angle += speed * dt;
+        paint();
+      }
+      requestAnimationFrame(step);
+    }
+    hero.addEventListener('pointerenter', function () { target = hover; });
+    hero.addEventListener('pointerleave', function () { target = idle; });
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        onScreen = entries.some(function (e) { return e.isIntersecting; });
+      }, { threshold: 0.05 });
+      io.observe(hero);
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') onScreen = false;
+      else onScreen = true;
+    });
+    paint();
+    requestAnimationFrame(step);
+  })();
+  </script>
 </body>
 </html>
