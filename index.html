@@ -247,6 +247,16 @@
       background: var(--color-surface-soft);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-card); padding: var(--space-32);
+      display: flex;
+      flex-direction: column;
+    }
+    .why-card-img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: var(--space-16);
+      display: block;
     }
     .why-card-num {
       font-size: 13px; font-weight: 500; letter-spacing: 0.06em;
@@ -612,16 +622,19 @@
         <p class="section-desc">Экспертный подход, персональные схемы лечения и международные протоколы — всё для устойчивого результата без компромиссов.</p>
         <div class="why-grid">
           <article class="why-card">
+            <img class="why-card-img" src="https://storage.yandexcloud.net/mcv26/why_choose_01.png" alt="Эксперт в цефалгологии" width="640" height="360" loading="lazy" />
             <div class="why-card-num">01</div>
             <h3>Эксперт в цефалгологии</h3>
             <p>Специализируется на лечении любых видов первичных и вторичных головных болей.</p>
           </article>
           <article class="why-card">
+            <img class="why-card-img" src="https://storage.yandexcloud.net/mcv26/why_choose_02.png" alt="Точный выбор терапии" width="640" height="360" loading="lazy" />
             <div class="why-card-num">02</div>
             <h3>Точный выбор терапии</h3>
             <p>Разрабатывает персональные схемы лечения, выбирая между ботулинотерапией и моноклональными антителами (фреманезумаб).</p>
           </article>
           <article class="why-card">
+            <img class="why-card-img" src="https://storage.yandexcloud.net/mcv26/why_choose_03.png" alt="Мировые стандарты" width="640" height="360" loading="lazy" />
             <div class="why-card-num">03</div>
             <h3>Мировые стандарты</h3>
             <p>Проводит процедуру ботулинотерапии строго по международному протоколу PREEMPT. Индивидуальный подбор повышает эффективность с первого визита.</p>
