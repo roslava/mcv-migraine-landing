@@ -244,11 +244,66 @@
     }
     .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-24); }
     .why-card {
+      position: relative;
       background: var(--color-surface-soft);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-card); padding: var(--space-32);
+      border-radius: var(--radius-card);
+      padding: var(--space-32);
       display: flex;
       flex-direction: column;
+      isolation: isolate;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
+    }
+    .why-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1.5px;
+      background: conic-gradient(
+        from var(--card-beam, 0deg),
+        transparent 0deg,
+        color-mix(in srgb, #FF6B35 15%, transparent) 20deg,
+        #FF6B35 50deg,
+        color-mix(in srgb, #FF6B35 40%, #fff) 58deg,
+        transparent 70deg,
+        transparent 180deg,
+        color-mix(in srgb, #1A659E 20%, transparent) 200deg,
+        #1A659E 230deg,
+        color-mix(in srgb, #1A659E 35%, #fff) 238deg,
+        transparent 250deg,
+        transparent 360deg
+      );
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+              mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+              mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .why-card:hover {
+        transform: translateY(-6px);
+        border-color: transparent;
+      }
+      .why-card:hover::before {
+        opacity: 1;
+        animation: card-beam-spin 3.2s linear infinite;
+      }
+    }
+    @keyframes card-beam-spin {
+      to { --card-beam: 360deg; }
+    }
+    @property --card-beam {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
     }
     .why-card-img {
       width: 100%;
@@ -311,6 +366,17 @@
       padding: var(--space-32) 0;
       border-top: 1px solid var(--color-border);
       font-size: 14px; color: var(--color-ink-soft); text-align: center;
+    }
+    .footer a {
+      color: var(--color-ink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(0, 78, 137, 0.25);
+      transition: color 0.2s ease, text-decoration-color 0.2s ease;
+    }
+    .footer a:hover {
+      color: var(--color-ember);
+      text-decoration-color: var(--color-ember);
     }
 
     .cta-contacts {
@@ -398,7 +464,9 @@
       }
     }
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition-duration: 0.01ms !important; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation: none !important; }
+      .why-card:hover { transform: none; }
+      .why-card:hover::before { animation: none; opacity: 0.85; }
     }
 
     /* Border Beam on hero */
@@ -683,7 +751,7 @@
   </main>
   <footer class="footer">
     <div class="container">
-      <p>© Медицинский центр Власова · Лечение головной боли и мигрени</p>
+      <p>© <a href="https://mcv26.ru" target="_blank" rel="noopener noreferrer">Медицинский центр Власова</a> · Лечение головной боли и мигрени</p>
     </div>
   </footer>
   <script>
