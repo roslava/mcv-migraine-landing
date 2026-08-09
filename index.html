@@ -302,6 +302,50 @@
       border-top: 1px solid var(--color-border);
       font-size: 14px; color: var(--color-ink-soft); text-align: center;
     }
+
+    .cta-contacts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-32);
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .cta-contact {
+      background: var(--color-surface-soft);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: var(--space-32);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .cta-contact-addr {
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--color-ink-soft);
+    }
+    .cta-contact-phone {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--color-ink);
+      width: fit-content;
+      transition: color 0.2s ease;
+    }
+    .cta-contact-phone:hover {
+      color: var(--color-ember);
+    }
+    @media (max-width: 900px) {
+      .cta-contacts {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+      }
+      .cta-contact-phone {
+        font-size: 20px;
+      }
+    }
+
     @media (max-width: 900px) {
       .hero-grid {
         grid-template-columns: 1fr;
@@ -610,11 +654,17 @@
     <section class="cta" id="cta">
       <div class="container">
         <h2>Верните себе жизнь без боли и компромиссов</h2>
-        <p>Запишитесь на амбулаторный приём к Дарье Юрьевне прямо сейчас — сделайте первый шаг к свободе от мигрени.</p>
-        <a href="#cta" class="btn-ember">
-          Записаться на приём
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+        <p>Позвоните и запишитесь на амбулаторный приём к Дарье Юрьевне — сделайте первый шаг к свободе от мигрени.</p>
+        <div class="cta-contacts">
+          <div class="cta-contact">
+            <p class="cta-contact-addr">г.&nbsp;Ставрополь, ул.&nbsp;Чехова, 45а</p>
+            <a class="cta-contact-phone" href="tel:+78652447044">+7 (8652) 44-70-44</a>
+          </div>
+          <div class="cta-contact">
+            <p class="cta-contact-addr">г.&nbsp;Ставрополь, ул.&nbsp;Тухачевского, 26/5</p>
+            <a class="cta-contact-phone" href="tel:+78652477366">+7 (8652) 477-366</a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
