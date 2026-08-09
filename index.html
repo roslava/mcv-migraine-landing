@@ -62,13 +62,40 @@
     .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
     .nav-logo img { height: 36px; width: auto; display: block; }
     .nav-cta {
+      position: relative;
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--color-ember); color: #fff;
       font-size: 15px; font-weight: 500; letter-spacing: 0.02em;
       padding: 10px 22px; border-radius: var(--radius-btn);
-      transition: opacity 0.2s ease;
+      overflow: hidden;
+      isolation: isolate;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .nav-cta:hover { opacity: 0.9; }
+    .nav-cta::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.28) 45%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0.28) 55%,
+        transparent 70%
+      );
+      background-size: 220% 100%;
+      background-position: 120% 0;
+      transition: background-position 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .nav-cta:hover {
+        transform: scale(1.04);
+      }
+      .nav-cta:hover::after {
+        background-position: -40% 0;
+      }
+    }
     .hero {
       background: var(--color-hero-bg);
       padding: 0;
@@ -142,15 +169,45 @@
       object-position: center center;
     }
     .btn-ember {
+      position: relative;
       display: inline-flex; align-items: center; gap: 10px;
       width: fit-content;
       background: var(--color-ember); color: #fff;
       font-size: 16px; font-weight: 500; letter-spacing: 0.01em;
       padding: 14px 28px; border-radius: var(--radius-btn);
-      border: none; cursor: pointer; transition: opacity 0.2s ease;
+      border: none; cursor: pointer;
+      overflow: hidden;
+      isolation: isolate;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .btn-ember:hover { opacity: 0.9; }
-    .btn-ember svg { width: 18px; height: 18px; }
+    .btn-ember > * { position: relative; z-index: 1; }
+    .btn-ember::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.28) 45%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0.28) 55%,
+        transparent 70%
+      );
+      background-size: 220% 100%;
+      background-position: 120% 0;
+      transition: background-position 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+      z-index: 0;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .btn-ember:hover {
+        transform: scale(1.04);
+      }
+      .btn-ember:hover::after {
+        background-position: -40% 0;
+      }
+    }
+    .btn-ember svg { width: 18px; height: 18px; flex-shrink: 0; }
     .shimmer-text {
       display: block;
       background-image: linear-gradient(
@@ -492,6 +549,8 @@
       *, *::before, *::after { transition-duration: 0.01ms !important; animation: none !important; }
       .why-card:hover { transform: none; }
       .why-card:hover::before { animation: none; opacity: 0.85; }
+      .btn-ember:hover,
+      .nav-cta:hover { transform: none; }
     }
 
     /* Border Beam on hero */
