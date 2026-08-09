@@ -441,6 +441,45 @@
         transition-duration: 0.01ms !important;
       }
     }
+
+    /* ─── Gradient Shimmer on headline ─── */
+    .shimmer-text {
+      position: relative;
+      display: inline-block;
+      background-image: linear-gradient(
+        105deg,
+        var(--color-ink) 0%,
+        var(--color-ink) 35%,
+        #F7C59F 42%,
+        #FF6B35 50%,
+        #F7C59F 58%,
+        var(--color-ink) 65%,
+        var(--color-ink) 100%
+      );
+      background-size: 250% 100%;
+      background-position: 100% center;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      animation: shimmer-sweep 2.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    }
+
+    @keyframes shimmer-sweep {
+      0%   { background-position: 100% center; }
+      45%  { background-position: 0% center; }
+      55%  { background-position: 0% center; }
+      100% { background-position: 100% center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .shimmer-text {
+        animation: none;
+        background-image: none;
+        -webkit-text-fill-color: var(--color-ink);
+        color: var(--color-ink);
+      }
+    }
   </style>
 </head>
 <body>
@@ -461,7 +500,7 @@
       <div class="container hero-grid">
         <div>
           <div class="hero-label">Научный подход</div>
-          <h1>Страдаете от частых головных болей?</h1>
+          <h1><span class="shimmer-text">Страдаете от частых головных болей?</span></h1>
           <p class="hero-lead">Избавьтесь от мигрени с гарантией научного подхода в Медицинском центре Власова.</p>
           <div class="hero-meta">
             Ведёт приём <strong>Дарья Юрьевна</strong> — опытный врач-невролог, цефалголог и ведущий специалист по лечению хронической мигрени.
@@ -475,7 +514,7 @@
         </div>
         <div class="hero-photo-wrap">
           <img
-            src="https://storage.yandexcloud.net/mcv26/daria_yuryevna03.png"
+            src="https://storage.yandexcloud.net/mcv26/daria_yuryevna01.png"
             alt="Дарья Юрьевна — врач-невролог, цефалголог"
             class="hero-photo"
             width="440"
