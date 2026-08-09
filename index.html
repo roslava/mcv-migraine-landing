@@ -381,7 +381,7 @@
       .hero-beam-glow { display: none; }
     }
 
-    /* Hero ticker */
+    /* Hero ticker — infinite + edge fade */
     .hero-ticker {
       position: absolute;
       left: 0;
@@ -394,11 +394,25 @@
       height: 44px;
       display: flex;
       align-items: center;
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        #000 12%,
+        #000 88%,
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        #000 12%,
+        #000 88%,
+        transparent 100%
+      );
     }
     .hero-ticker-track {
       display: flex;
       width: max-content;
-      animation: ticker-scroll 28s linear infinite;
+      animation: ticker-scroll 32s linear infinite;
       will-change: transform;
     }
     .hero-ticker-group {
@@ -412,7 +426,7 @@
       text-transform: uppercase;
     }
     .hero-ticker-group span {
-      padding: 0 1.25rem;
+      padding: 0 1.5rem;
     }
     .hero-ticker-group .dot {
       width: 5px;
@@ -422,10 +436,11 @@
       opacity: 0.85;
       flex-shrink: 0;
       padding: 0;
+      margin: 0;
     }
     @keyframes ticker-scroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      from { transform: translate3d(0, 0, 0); }
+      to   { transform: translate3d(-50%, 0, 0); }
     }
     @media (prefers-reduced-motion: reduce) {
       .hero-ticker-track { animation: none; }
@@ -471,22 +486,14 @@
       </div>
       <div class="hero-ticker" aria-hidden="true">
         <div class="hero-ticker-track">
-          <div class="hero-ticker-group">
-            <span>Избавьтесь от мигрени</span>
-            <span class="dot" aria-hidden="true"></span>
-            <span>Научный подход</span>
-            <span class="dot" aria-hidden="true"></span>
-            <span>В Ставрополе</span>
-            <span class="dot" aria-hidden="true"></span>
-          </div>
-          <div class="hero-ticker-group">
-            <span>Избавьтесь от мигрени</span>
-            <span class="dot" aria-hidden="true"></span>
-            <span>Научный подход</span>
-            <span class="dot" aria-hidden="true"></span>
-            <span>В Ставрополе</span>
-            <span class="dot" aria-hidden="true"></span>
-          </div>
+          <div class="hero-ticker-group"><span>Избавьтесь от мигрени</span><span class="dot" aria-hidden="true"></span><span>Научный подход</span><span class="dot" aria-hidden="true"></span><span>В Ставрополе</span><span class="dot" aria-hidden="true"></span></div>
+          <div class="hero-ticker-group"><span>Избавьтесь от мигрени</span><span class="dot" aria-hidden="true"></span><span>Научный подход</span><span class="dot" aria-hidden="true"></span><span>В Ставрополе</span><span class="dot" aria-hidden="true"></span></div>
+          <div class="hero-ticker-group"><span>Избавьтесь от мигрени</span><span class="dot" aria-hidden="true"></span><span>Научный подход</span><span class="dot" aria-hidden="true"></span><span>В Ставрополе</span><span class="dot" aria-hidden="true"></span></div>
+          <div class="hero-ticker-group"><span>Избавьтесь от мигрени</span><span class="dot" aria-hidden="true"></span><span>Научный подход</span><span class="dot" aria-hidden="true"></span><span>В Ставрополе</span><span class="dot" aria-hidden="true"></span></div>
+          <div class="hero-ticker-group"><span>Избавьтесь от мигрени</span><span class="dot" aria-hidden="true"></span><span>Научный подход</span><span class="dot" aria-hidden="true"></span><span>В Ставрополе</span><span class="dot" aria-hidden="true"></span></div>
+          <div class="hero-ticker-group"><span>Избавьтесь от мигрени</span><span class="dot" aria-hidden="true"></span><span>Научный подход</span><span class="dot" aria-hidden="true"></span><span>В Ставрополе</span><span class="dot" aria-hidden="true"></span></div>
+          <div class="hero-ticker-group"><span>Избавьтесь от мигрени</span><span class="dot" aria-hidden="true"></span><span>Научный подход</span><span class="dot" aria-hidden="true"></span><span>В Ставрополе</span><span class="dot" aria-hidden="true"></span></div>
+          <div class="hero-ticker-group"><span>Избавьтесь от мигрени</span><span class="dot" aria-hidden="true"></span><span>Научный подход</span><span class="dot" aria-hidden="true"></span><span>В Ставрополе</span><span class="dot" aria-hidden="true"></span></div>
         </div>
       </div>
     </section>
