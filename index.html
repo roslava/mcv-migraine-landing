@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     :root {
       --color-bone: #EFEFD0;
@@ -421,14 +422,17 @@
     }
     .footer {
       padding: var(--space-32) 0;
-      border-top: 1px solid var(--color-border);
-      font-size: 14px; color: var(--color-ink-soft); text-align: center;
+      background: var(--color-ink);
+      border-top: none;
+      font-size: 14px;
+      color: rgba(249, 245, 232, 0.75);
+      text-align: center;
     }
     .footer a {
-      color: var(--color-ink);
+      color: #fff;
       text-decoration: underline;
       text-underline-offset: 3px;
-      text-decoration-color: rgba(0, 78, 137, 0.25);
+      text-decoration-color: rgba(255, 255, 255, 0.35);
       transition: color 0.2s ease, text-decoration-color 0.2s ease;
     }
     .footer a:hover {
@@ -462,12 +466,19 @@
       }
     }
     .cta-contact-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--color-ember);
       margin-bottom: 10px;
+    }
+    .cta-contact-label i {
+      font-size: 13px;
+      color: var(--color-ember);
     }
     .cta-contact-addr {
       font-size: 15px;
@@ -822,12 +833,12 @@
         <p>Позвоните и запишитесь на амбулаторный приём к Дарье Юрьевне — сделайте первый шаг к свободе от мигрени.</p>
         <div class="cta-contacts">
           <div class="cta-contact">
-            <div class="cta-contact-label">Чехова</div>
+            <div class="cta-contact-label"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Чехова</div>
             <p class="cta-contact-addr">г.&nbsp;Ставрополь,<br />ул.&nbsp;Чехова, 45а</p>
             <a class="cta-contact-phone" href="tel:+78652447044">+7 (8652) 44-70-44</a>
           </div>
           <div class="cta-contact">
-            <div class="cta-contact-label">Тухачевского</div>
+            <div class="cta-contact-label"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Тухачевского</div>
             <p class="cta-contact-addr">г.&nbsp;Ставрополь,<br />ул.&nbsp;Тухачевского, 26/5</p>
             <a class="cta-contact-phone" href="tel:+78652477366">+7 (8652) 477-366</a>
           </div>
