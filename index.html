@@ -83,7 +83,7 @@
     }
     .hero-content {
       max-width: 28rem;
-      padding: var(--space-96) 0;
+      padding: var(--space-96) 0 calc(var(--space-96) + 24px);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -380,6 +380,56 @@
       .hero-beam-ring,
       .hero-beam-glow { display: none; }
     }
+
+    /* Hero ticker */
+    .hero-ticker {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 4;
+      background: var(--color-ember);
+      color: #fff;
+      overflow: hidden;
+      height: 44px;
+      display: flex;
+      align-items: center;
+    }
+    .hero-ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker-scroll 28s linear infinite;
+      will-change: transform;
+    }
+    .hero-ticker-group {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      white-space: nowrap;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .hero-ticker-group span {
+      padding: 0 1.25rem;
+    }
+    .hero-ticker-group .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0.85;
+      flex-shrink: 0;
+      padding: 0;
+    }
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-ticker-track { animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -419,7 +469,28 @@
           />
         </div>
       </div>
+      <div class="hero-ticker" aria-hidden="true">
+        <div class="hero-ticker-track">
+          <div class="hero-ticker-group">
+            <span>Избавьтесь от мигрени</span>
+            <span class="dot" aria-hidden="true"></span>
+            <span>Научный подход</span>
+            <span class="dot" aria-hidden="true"></span>
+            <span>В Ставрополе</span>
+            <span class="dot" aria-hidden="true"></span>
+          </div>
+          <div class="hero-ticker-group">
+            <span>Избавьтесь от мигрени</span>
+            <span class="dot" aria-hidden="true"></span>
+            <span>Научный подход</span>
+            <span class="dot" aria-hidden="true"></span>
+            <span>В Ставрополе</span>
+            <span class="dot" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
     </section>
+
     <section class="doctor" id="doctor">
       <div class="container doctor-grid">
         <div>
