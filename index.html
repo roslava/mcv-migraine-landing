@@ -58,7 +58,7 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
-    .nav-logo img { height: 36px; width: auto; filter: brightness(0) invert(1); }
+    .nav-logo img { height: 36px; width: auto; display: block; }
     .nav-cta {
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--color-ember); color: #fff;
@@ -121,14 +121,23 @@
       min-width: 482.406px;
       overflow: hidden;
       border-radius: 0;
-      transform: rotate(9deg);
-      margin-top:20px;
+      position: relative;
     }
-    .hero-visual img {
+    .hero-visual-desktop {
       width: 100%;
       height: 100%;
+      transform: rotate(9deg);
+      margin-top: 20px;
+      object-fit: cover;
       object-position: center center;
       display: block;
+    }
+    .hero-visual-mobile {
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
     }
     .btn-ember {
       display: inline-flex; align-items: center; gap: 10px;
@@ -296,11 +305,19 @@
         gap: 0;
         min-height: 0;
       }
-      .hero-visual  img {
-        min-height: 320px;
-        max-height: 420px;
-        order: -1;
+      .hero-visual {
+        min-height: 240px;
+        max-height: 360px;
         min-width: 100%;
+        order: -1;
+      }
+      .hero-visual-desktop { display: none; }
+      .hero-visual-mobile {
+        display: block;
+        min-height: 240px;
+        max-height: 360px;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
       }
       .hero-content {
@@ -316,7 +333,6 @@
     }
     @media (max-width: 480px) {
       .btn-ember { width: 100%; justify-content: center; }
-      .hero-visual  img {object-fit: cover;}
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; }
@@ -479,10 +495,18 @@
         </div>
         <div class="hero-visual">
           <img
+            class="hero-visual-desktop"
             src="https://storage.yandexcloud.net/mcv26/landing_mcv26_hero_06.png"
             alt="Головная боль"
             width="600"
             height="600"
+          />
+          <img
+            class="hero-visual-mobile"
+            src="https://storage.yandexcloud.net/mcv26/landing_mcv26_hero_06.png"
+            alt="Головная боль"
+            width="800"
+            height="450"
           />
         </div>
       </div>
