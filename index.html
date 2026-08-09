@@ -54,7 +54,9 @@
     .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 24px; }
     .nav {
       position: sticky; top: 0; z-index: 50;
-      background: var(--color-hero-bg);
+      background: rgba(0, 78, 137, 0.35);
+      -webkit-backdrop-filter: blur(16px) saturate(1.2);
+      backdrop-filter: blur(16px) saturate(1.2);
       border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
@@ -139,6 +141,7 @@
     }
     .btn-ember {
       display: inline-flex; align-items: center; gap: 10px;
+      width: fit-content;
       background: var(--color-ember); color: #fff;
       font-size: 16px; font-weight: 500; letter-spacing: 0.01em;
       padding: 14px 28px; border-radius: var(--radius-btn);
@@ -330,9 +333,13 @@
       .methods-grid { grid-template-columns: 1fr; }
       section { padding: var(--space-64) 0; }
       .doctor { padding: var(--space-80) 0; }
-    }
-    @media (max-width: 480px) {
-      .btn-ember { width: 100%; justify-content: center; }
+      .hero-content .btn-ember,
+      .btn-ember {
+        width: 100%;
+        max-width: 100%;
+        justify-content: center;
+        box-sizing: border-box;
+      }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; }
@@ -365,6 +372,7 @@
     }
     .hero-beam-ring {
       padding: 2px;
+      filter: blur(0.6px);
       -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
@@ -375,8 +383,8 @@
               mask-composite: exclude;
     }
     .hero-beam-glow {
-      filter: blur(16px);
-      opacity: 0.4;
+      filter: blur(28px);
+      opacity: 0.55;
       z-index: 1;
     }
     .hero > .container {
@@ -622,7 +630,7 @@
       return;
     }
     var angle = 12;
-    var speed = 42;
+    var speed = 21;
     var last = 0;
     var onScreen = true;
     function paint() {
