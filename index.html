@@ -119,7 +119,7 @@
             </div>
           </div>
           <div class="cta-form">
-            <form id="cta-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <form id="cta-form" action="send.php" method="POST">
               <input type="hidden" name="_subject" value="Заявка с сайта migren.mcv26.ru" />
               <input type="text" name="_gotcha" value="" style="display:none" tabindex="-1" autocomplete="off" />
               <label for="name">Ваше имя</label>
@@ -197,20 +197,8 @@
     if (!form) return;
     var status = document.getElementById('form-status');
     var btn = document.getElementById('cta-submit');
-    var endpoint = form.getAttribute('action') || '';
-    if (endpoint.indexOf('YOUR_FORM_ID') !== -1) {
-      console.warn('Formspree: замените YOUR_FORM_ID на ID формы из кабинета Formspree');
-    }
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (endpoint.indexOf('YOUR_FORM_ID') !== -1) {
-        if (status) {
-          status.hidden = false;
-          status.className = 'form-status form-status--error';
-          status.textContent = 'Форма ещё не подключена. Укажите Formspree Form ID.';
-        }
-        return;
-      }
       if (btn) {
         btn.disabled = true;
         btn.setAttribute('aria-busy', 'true');
@@ -221,23 +209,21 @@
         status.textContent = 'Отправляем…';
       }
       var data = new FormData(form);
-      fetch(endpoint, {
+      fetch(form.getAttribute('action') || 'send.php', {
         method: 'POST',
         body: data,
         headers: { 'Accept': 'application/json' }
       }).then(function (res) {
-        if (res.ok) {
-          form.reset();
-          if (status) {
-            status.className = 'form-status form-status--ok';
-            status.textContent = 'Заявка отправлена. Мы свяжемся с вами в ближайшее время.';
-          }
-        } else {
-          return res.json().then(function (body) {
+        return res.json().then(function (body) {
+          if (!res.ok || !body || !body.ok) {
             throw new Error((body && body.error) || 'Ошибка отправки');
-          }).catch(function () {
-            throw new Error('Ошибка отправки');
-          });
+          }
+        });
+      }).then(function () {
+        form.reset();
+        if (status) {
+          status.className = 'form-status form-status--ok';
+          status.textContent = 'Заявка отправлена. Мы свяжемся с вами в ближайшее время.';
         }
       }).catch(function () {
         if (status) {
