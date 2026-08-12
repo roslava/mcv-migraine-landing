@@ -1,0 +1,13 @@
+# Запрет прямого доступа к конфигу с паролем
+<Files "config.php">
+  Require all denied
+</Files>
+<Files "config.example.php">
+  Require all denied
+</Files>
+
+# На всякий случай для старых Apache
+<FilesMatch "^(config\.php|config\.example\.php)$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
