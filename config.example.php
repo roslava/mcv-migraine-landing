@@ -1,23 +1,17 @@
 <?php
-/**
- * Скопируйте этот файл на сервер как config.php
- * и заполните пароль приложения Яндекса.
- * config.php НЕ должен попадать в git и не должен быть доступен по HTTP.
- */
 return [
-    // Ящик, от имени которого идёт отправка (SMTP-логин)
-    'smtp_user' => 'rostislav.nen@yandex.ru',
-
-    // Пароль приложения Яндекса (не основной пароль от почты!)
-    'smtp_pass' => 'ВСТАВЬТЕ_ПАРОЛЬ_ПРИЛОЖЕНИЯ',
-
-    // Куда приходят заявки
-    'to' => 'rostislav.nen@yandex.ru',
-
-    // Тема по умолчанию
-    'subject' => 'Заявка с сайта migren.mcv26.ru',
-
-    // SMTP Яндекса
+    'smtp_user' => 'mcv26-feedback@yandex.ru',
+    'smtp_pass' => 'xxxx',
+    'to' => 'mcv26-feedback@yandex.ru',
+    'subject' => 'Заявка с xxxxxx.mcv26.ru',
     'smtp_host' => 'smtp.yandex.ru',
-    'smtp_port' => 465, // SSL
+    'smtp_port' => 587,
+    'smtp_secure' => 'tls',
+    'debug' => true,
+    
+    // ===== ПАРАМЕТРЫ ДЛЯ ПИСЬМА =====
+    'site_name' => 'xxxxxx.mcv26.ru',          
+    'site_title' => 'Лечение xxxxx',          
+    'email_from' => 'mcv26-feedback@yandex.ru', 
+    'footer_text' => 'С заботой о вашем здоровье', 
 ];

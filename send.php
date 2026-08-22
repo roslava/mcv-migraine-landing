@@ -55,16 +55,24 @@ if (!is_readable($configPath)) {
 }
 
 $config = require $configPath;
+
+// ============ ВСЕ ДАННЫЕ ИЗ КОНФИГА ============
 $to = $config['to'] ?? 'mcv26-feedback@yandex.ru';
-$subject = $config['subject'] ?? 'Заявка с migren.mcv26.ru';
-$fromEmail = $config['smtp_user'] ?? 'no-reply@migren.mcv26.ru';
+$subject = $config['subject'] ?? 'Заявка с сайта';
+$fromEmail = $config['email_from'] ?? $config['smtp_user'] ?? 'no-reply@migren.mcv26.ru';
+
+// Новые параметры из конфига
+$siteName = $config['site_name'] ?? 'migren.mcv26.ru';
+$siteTitle = $config['site_title'] ?? 'Новая заявка';
+$footerText = $config['footer_text'] ?? 'С заботой о вас';
+// ===============================================
 
 // Получаем IP и другую информацию
 $ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? 'Неизвестно';
 $ua = $_SERVER['HTTP_USER_AGENT'] ?? 'Неизвестно';
 $when = date('d.m.Y H:i:s');
 
-// ============ HTML-ВЕРСИЯ ПИСЬМА (ЦВЕТА САЙТА) ============
+// ============ HTML-ВЕРСИЯ ПИСЬМА ============
 $htmlMessage = "
 <!DOCTYPE html>
 <html>
@@ -87,7 +95,6 @@ $htmlMessage = "
             box-shadow: 0 8px 30px rgba(0,78,137,0.15);
         }
         
-        /* ===== ВЕРХНИЙ БАННЕР ===== */
         .header {
             background: linear-gradient(135deg, #004E89 0%, #1A659E 100%);
             padding: 30px 20px;
@@ -107,20 +114,17 @@ $htmlMessage = "
             font-size: 16px;
         }
         
-        /* ===== ТЕЛО ПИСЬМА ===== */
         .content {
             padding: 30px 25px;
             background: #ffffff;
         }
         
-        /* ===== ПОЛЯ С ДАННЫМИ ===== */
         .field {
             margin: 20px 0;
             padding: 16px 18px;
             background: #EFEFDO;
             border-radius: 12px;
             border-left: 5px solid #FF6B35;
-            transition: all 0.2s;
         }
         .field-phone {
             border-left-color: #F7C59F;
@@ -152,11 +156,7 @@ $htmlMessage = "
             color: #004E89;
             text-decoration: none;
         }
-        .value a:hover {
-            text-decoration: underline;
-        }
         
-        /* ===== БЕЙДЖ СОГЛАСИЯ ===== */
         .badge {
             display: inline-block;
             background: #1A659E;
@@ -168,7 +168,6 @@ $htmlMessage = "
             letter-spacing: 0.3px;
         }
         
-        /* ===== ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ ===== */
         .meta {
             margin-top: 25px;
             padding: 18px 20px;
@@ -187,19 +186,14 @@ $htmlMessage = "
             font-size: 14px;
             color: #333;
             padding: 4px 0;
-            display: flex;
-            align-items: center;
         }
         .meta-item strong {
             color: #1A659E;
-            margin-left: 4px;
         }
         .meta-icon {
             margin-right: 8px;
-            font-size: 16px;
         }
         
-        /* ===== ФУТЕР ===== */
         .footer {
             padding: 20px 25px;
             background: #EFEFDO;
@@ -220,7 +214,6 @@ $htmlMessage = "
             color: #FF6B35;
         }
         
-        /* ===== АДАПТИВ ===== */
         @media (max-width: 480px) {
             .header h1 { font-size: 20px; }
             .value { font-size: 16px; }
@@ -231,28 +224,25 @@ $htmlMessage = "
 <body>
     <div class='container'>
         
-        <!-- ШАПКА -->
+        <!-- ===== ШАПКА - ДАННЫЕ ИЗ КОНФИГА ===== -->
         <div class='header'>
-            <h1>📩 Новая заявка</h1>
-            <p>с сайта <strong>migren.mcv26.ru</strong></p>
+            <h1>📩 {$siteTitle}</h1>                              ← Из конфига
+            <p>с сайта <strong>{$siteName}</strong></p>           ← Из конфига
         </div>
         
         <!-- ОСНОВНОЙ КОНТЕНТ -->
         <div class='content'>
             
-            <!-- Имя -->
             <div class='field'>
                 <span class='label'><span class='icon'>👤</span>Имя клиента</span>
                 <div class='value'>{$name}</div>
             </div>
             
-            <!-- Телефон -->
             <div class='field field-phone'>
                 <span class='label'><span class='icon'>📱</span>Контактный телефон</span>
                 <div class='value'><a href='tel:{$phone}'>{$phone}</a></div>
             </div>
             
-            <!-- Согласие -->
             <div class='field field-agree'>
                 <span class='label'><span class='icon'>✅</span>Согласие на обработку ПДн</span>
                 <div class='value'>
@@ -260,7 +250,6 @@ $htmlMessage = "
                 </div>
             </div>
             
-            <!-- МЕТА-ДАННЫЕ -->
             <div class='meta'>
                 <span class='meta-title'>📋 Дополнительная информация</span>
                 
@@ -282,13 +271,13 @@ $htmlMessage = "
             
         </div>
         
-        <!-- ФУТЕР -->
+        <!-- ===== ФУТЕР - ДАННЫЕ ИЗ КОНФИГА ===== -->
         <div class='footer'>
-            <p class='brand'>migren.mcv26.ru</p>
+            <p class='brand'>{$siteName}</p>
             <p>Письмо отправлено автоматически</p>
             <p style='color:#aaa; font-size:11px;'>
                 <span class='highlight'>✦</span> 
-                С заботой о вашем здоровье 
+                {$footerText}                                    
                 <span class='highlight'>✦</span>
             </p>
         </div>
@@ -301,8 +290,8 @@ $htmlMessage = "
 // ============ ТЕКСТОВАЯ ВЕРСИЯ ============
 $textMessage = "
 ╔═════════════════════════════════════════╗
-║  📩 НОВАЯ ЗАЯВКА С САЙТА               ║
-║  migren.mcv26.ru                       ║
+║  📩 {$siteTitle}                       ║
+║  {$siteName}                           ║
 ╚═════════════════════════════════════════╝
 
 👤 Имя клиента:     {$name}
@@ -315,6 +304,7 @@ $textMessage = "
 🌐 IP-адрес: {$ip}
 ───────────────────────────────────────────
 
+{$footerText}
 Письмо отправлено автоматически.
 ";
 
